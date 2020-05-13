@@ -24,17 +24,6 @@ public class TestTemplate {
     }
 
     @Test
-    public void testMissingValueRaisesException() {
-        try {
-            new Template("${foo}").evaluate();
-            fail("evaluate() should throw an exception if "
-                    + "a variable was left without a value!");
-        } catch (MissingValueException expected) {
-            assertEquals("No value for ${foo}", expected.getMessage());
-        }
-    }
-
-    @Test
     public void variablesGetProcessedJustOnce() throws Exception {
         template.set("one", "${one}");
         template.set("two", "${three}");

@@ -9,6 +9,20 @@ import java.util.regex.Pattern;
  * Created by Pavlo (Paul) Buidenkov on 2020-05-14
  */
 public class TemplateParse {
+    public List<Segment> parseSegments(String template) {
+        List<Segment> segments = new ArrayList<Segment>();
+        List<String> strings = parse(template);
+        for (String s : strings) {
+            if (Template.isVariable(s)) {
+                String name = s.substring(2, s.length() - 1);
+                segments.add(new Variable(name));
+            } else {
+                segments.add(new PlainText(s));
+            }
+        }
+        return segments;
+    }
+
     public List<String> parse(String template) {
         List<String> segments = new ArrayList<String>();
         int index = collectSegments(segments, template);
