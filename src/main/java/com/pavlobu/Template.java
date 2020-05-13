@@ -22,9 +22,12 @@ public class Template {
 
     public String evaluate() {
         String result = templateText;
-        for (Map.Entry<String, String> entry: variables.entrySet()) {
+        for (Map.Entry<String, String> entry : variables.entrySet()) {
             String regex = "\\$\\{" + entry.getKey() + "\\}";
             result = result.replaceAll(regex, entry.getValue());
+        }
+        if (result.matches(".*\\$\\{.+\\}.*")) {
+            throw new MissingValueException();
         }
         return result;
     }
