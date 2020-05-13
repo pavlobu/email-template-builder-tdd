@@ -29,7 +29,9 @@ public class TestTemplate {
             new Template("${foo}").evaluate();
             fail("evaluate() should throw an exception if "
                     + "a variable was left without a value!");
-        } catch (MissingValueException e) {}
+        } catch (MissingValueException expected) {
+            assertEquals("No value for ${foo}", expected.getMessage());
+        }
     }
 
     private void assertTemplateEvaluatesTo(String expected) {
